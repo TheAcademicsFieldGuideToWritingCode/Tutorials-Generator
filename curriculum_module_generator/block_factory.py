@@ -1,4 +1,4 @@
-from block import Block, SeedBlock, ExplanatoryBlock, KnowledgeTestingBlock
+from curriculum_module_generator.block import Block, SeedBlock, ExplanatoryBlock, KnowledgeTestingBlock
 
 class BlockFactory:
     BLOCK_TYPES = {

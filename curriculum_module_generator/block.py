@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from cell_type import CellType
+from curriculum_module_generator.cell_type import CellType
 
 
 class Block(ABC):

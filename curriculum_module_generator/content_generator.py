@@ -6,9 +6,9 @@ from markdownify import markdownify as md
 import json
 import uuid
 from tqdm import tqdm
-from block import Block
-from cell_type import CellType
-from block_factory import BlockFactory
+from curriculum_module_generator.block import Block
+from curriculum_module_generator.cell_type import CellType
+from curriculum_module_generator.block_factory import BlockFactory
 
 
 class ContentGenerator:

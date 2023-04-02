@@ -1,7 +1,8 @@
 import os
 import openai
 import nbformat as nbf
-import markdown
+import markdown2
+from markdownify import markdownify as md
 import json
 import uuid
 from tqdm import tqdm
@@ -11,7 +12,7 @@ from block_factory import BlockFactory
 
 
 class ContentGenerator:
-    def __init__(self, model="gpt-3.5-turbo", system_block=None, max_tokens=1024, n=1, stop=None, temperature=0.7):
+    def __init__(self, model="gpt-3.5-turbo", system_block=None, max_tokens=1024, n=1, stop=None, temperature=0.7, blocks=None):
         self.model = model
         self.system_block = system_block
         self.max_tokens = max_tokens
@@ -19,6 +20,7 @@ class ContentGenerator:
         self.stop = stop
         self.temperature = temperature
         self._set_api_key()
+        self.blocks = blocks
 
     def _set_api_key(self):
         openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -26,7 +28,6 @@ class ContentGenerator:
             raise ValueError("Environment variable OPENAI_API_KEY not set")
 
     def generate_block_content(self, block):
-        print(block.generate_prompt())
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=[
@@ -41,7 +42,6 @@ class ContentGenerator:
             stop=self.stop,
             temperature=self.temperature,
         )
-        print(response["choices"])
         block.set_content(response["choices"][0]["message"]["content"])
 
     def generate_all_block_content(self, blocks):
@@ -50,14 +50,15 @@ class ContentGenerator:
                 self.generate_block_content(block)
                 pbar.update(1)
 
-    def create_notebook(self, config_file):
+    def create_notebook(self, config_file, output_file):
         nb = nbf.v4.new_notebook()
         blocks = self._create_content(config_file)
         self._generate_notebook_blocks(blocks, nb)
+        nbf.write(nb, output_file)
+        
         return nb
 
     def _generate_notebook_blocks(self, blocks, nb):
-        print(blocks)
         for block in blocks:
             if block.cell_type == CellType.CODE:
                 new_cell = nbf.v4.new_code_cell(block.content)
@@ -65,13 +66,19 @@ class ContentGenerator:
                 nb.cells.append(new_cell)
             elif block.cell_type == CellType.MARKDOWN:
                 nb.cells.append(nbf.v4.new_markdown_cell(block.content))
-        print(nb)
         return nb
-    
+
+
     def create_markdown_file(self, blocks, file_path):
+        markdown_text = ""
         with open(file_path, "w") as f:
             for block in blocks:
-                f.write(markdown.markdown(block.content))
+                markdown_text += markdown2.markdown(block.content)
+            f.write(md(markdown_text))
+
+    def create_wiki(self, config_file, output_file):
+        blocks = self._create_content(config_file)
+        self.create_markdown_file(blocks, output_file)
 
     def _create_content(self, config_file):
         blocks = self.parse_config_file(config_file)

@@ -51,7 +51,7 @@ class ExplanatoryBlock(Block):
         type_of_cell = (
             "Markdown" if self.cell_type == CellType.MARKDOWN else "Code"
         )
-        return f"This is a {type_of_cell} block in a Jupyter Notebook. Use appropriate headers for chapter sections if of type Markdown. Explain {self.topic} by {self.method_of_teaching} in a way that is relatable to {self.target_audience}."
+        return f"This is a {type_of_cell} block in a Jupyter Notebook. Use appropriate headers for chapter sections if of type Markdown. Explain {self.topic} by {self.method_of_teaching} in a way that is relatable to {self.target_audience}. Be careful not to be overly dramatic and not to talk down to the audience regardless of their level of expertise."
 
 
 class KnowledgeTestingBlock(Block):

@@ -19,7 +19,7 @@ class TemplateGenerator:
                 {
                     "type": "ExplanatoryBlock",
                     "topic": self.topic,
-                    "method_of_teaching": "a metaphor",
+                    "method_of_teaching": "a metaphor without code",
                     "target_audience": self.target_audience,
                     "context": None,
                     "cell_type": "MARKDOWN"

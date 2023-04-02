@@ -5,15 +5,15 @@ import markdown
 import json
 import uuid
 from tqdm import tqdm
-from cell import Cell
+from block import Block
 from cell_type import CellType
-from cell_factory import CellFactory 
+from block_factory import BlockFactory
 
 
 class ContentGenerator:
-    def __init__(self, model="gpt-3.5-turbo", system_cell=None, max_tokens=1024, n=1, stop=None, temperature=0.7):
+    def __init__(self, model="gpt-3.5-turbo", system_block=None, max_tokens=1024, n=1, stop=None, temperature=0.7):
         self.model = model
-        self.system_cell = system_cell
+        self.system_block = system_block
         self.max_tokens = max_tokens
         self.n = n
         self.stop = stop
@@ -25,16 +25,16 @@ class ContentGenerator:
         if not openai.api_key:
             raise ValueError("Environment variable OPENAI_API_KEY not set")
 
-    def generate_cell_content(self, cell):
-        print(cell.generate_prompt())
+    def generate_block_content(self, block):
+        print(block.generate_prompt())
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=[
                 {
                     "role": "system",
-                    "content": self.system_cell.generate_prompt(),
+                    "content": self.system_block.generate_prompt(),
                 },
-                {"role": "user", "content": cell.generate_prompt()},
+                {"role": "user", "content": block.generate_prompt()},
             ],
             max_tokens=self.max_tokens,
             n=self.n,
@@ -42,21 +42,21 @@ class ContentGenerator:
             temperature=self.temperature,
         )
         print(response["choices"])
-        cell.set_content(response["choices"][0]["message"]["content"])
+        block.set_content(response["choices"][0]["message"]["content"])
 
-    def generate_all_cell_content(self, cells):
-        with tqdm(total=len(cells), desc="Generating cell content") as pbar:
-            for cell in cells:
-                self.generate_cell_content(cell)
+    def generate_all_block_content(self, blocks):
+        with tqdm(total=len(blocks), desc="Generating block content") as pbar:
+            for block in blocks:
+                self.generate_block_content(block)
                 pbar.update(1)
 
     def create_notebook(self, config_file):
         nb = nbf.v4.new_notebook()
-        cells = self._create_content(config_file)
-        self._generate_notebook_cells(cells, nb)
+        blocks = self._create_content(config_file)
+        self._generate_notebook_blocks(blocks, nb)
         return nb
 
-    def _generate_notebook_cells(self, blocks, nb):
+    def _generate_notebook_blocks(self, blocks, nb):
         print(blocks)
         for block in blocks:
             if block.cell_type == CellType.CODE:
@@ -68,38 +68,37 @@ class ContentGenerator:
         print(nb)
         return nb
     
-    def create_markdown_file(self, cells, file_path):
+    def create_markdown_file(self, blocks, file_path):
         with open(file_path, "w") as f:
-            for cell in cells:
-                f.write(markdown.markdown(cell.content))
+            for block in blocks:
+                f.write(markdown.markdown(block.content))
 
     def _create_content(self, config_file):
-        cells = self.parse_config_file(config_file)
-        self.update_context(config_file, cells)
+        blocks = self.parse_config_file(config_file)
+        self.update_context(config_file, blocks)
 
-        if cells[0].type == 'SeedCell':
-            self.system_cell = cells[0]
-            cells.pop(0)
+        if blocks[0].type == 'SeedBlock':
+            self.system_block = blocks[0]
+            blocks.pop(0)
         else:
-            self.system_cell = None
+            self.system_block = None
 
-        self.generate_all_cell_content(cells)
-        return cells
+        self.generate_all_block_content(blocks)
+        return blocks
 
     @staticmethod
-    def update_context(config_file, cells):
+    def update_context(config_file, blocks):
         with open(config_file) as f:
             config = json.load(f)
-            for cell, cell_config in zip(cells, config['cells']):
-                if 'context' in cell_config and cell_config['context'] is not None:
-                    cell.set_context(cells[cell_config['context']])
+            for block, block_config in zip(blocks, config['blocks']):
+                if 'context' in block_config and block_config['context'] is not None:
+                    block.set_context(blocks[block_config['context']])
     @staticmethod
     def parse_config_file(config_file):
         with open(config_file) as f:
             config = json.load(f)
-            cells = []
-            for cell_config in config['cells']:
-                cell = CellFactory.create_cell(cell_config)
-                cells.append(cell)
-            print(cells)
-            return cells
+            blocks = []
+            for block_config in config['blocks']:
+                block = BlockFactory.create_block(block_config)
+                blocks.append(block)
+            return blocks

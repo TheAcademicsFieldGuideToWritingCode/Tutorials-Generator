@@ -1,0 +1,44 @@
+{
+    "blocks": [
+      {
+        "type": "SeedBlock",
+        "identity": "professor of computer science",
+        "topic": "Scraping Reddit with the PRAW package in Python",
+        "target_audience": "first year students"
+      },
+    {
+        "type": "ExplanatoryBlock",
+        "topic": "Scraping Reddit with the PRAW package in Python",
+        "method_of_teaching": "a metaphor that is relatable to social psychologists",
+        "target_audience": "first year students",
+        "context": null,
+        "cell_type": "MARKDOWN"
+      },
+      {
+        "type": "ExplanatoryBlock",
+        "topic": "Scraping Reddit with the PRAW package in Python",
+        "method_of_teaching": "a concrete code example that's thoroughly commented",
+        "target_audience": "first year students",
+        "context": null,
+        "cell_type": "MARKDOWN"
+      },
+      {
+        "type": "KnowledgeTestingBlock",
+        "n": 1,
+        "question_type": "programming problem",
+        "topic": "Scraping Reddit with the PRAW package in Python",
+        "target_audience": "first year students",
+        "context": null,
+        "cell_type": "MARKDOWN"
+      },
+      {
+        "type": "KnowledgeTestingBlock",
+        "n": 1,
+        "question_type": "programming problem",
+        "topic": "Scraping Reddit with the PRAW package in Python",
+        "target_audience": "first year students",
+        "cell_type": "CODE",
+        "context": 3
+      }
+    ]
+}

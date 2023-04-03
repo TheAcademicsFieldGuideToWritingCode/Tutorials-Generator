@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="curriculum_module_generator",
-    version="0.0.1",
+    version="0.0.2",
     author="Nathan Laundry",
     author_email="nathan.laundry@gmail.com",
     description="Generates a jupyter notebook and markdown file for a topic",

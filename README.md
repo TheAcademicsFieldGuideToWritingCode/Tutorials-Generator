@@ -67,3 +67,15 @@ Feel free to submit issues or pull requests to improve this project.
 
 ### License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+### Citing in academic works
+
+@misc{Laundry:currentdate,
+  author = {Laundry, Nathan},
+  year = {current date},
+  title = {Curriculum\_module\_generator},
+  version = {Current code version},
+  howpublished = {Computer Program},
+  url = {https://github.com/TheAcademicsFieldGuideToWritingCode/Tutorials-Generator}
+}
+

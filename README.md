@@ -70,6 +70,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ### Citing in academic works
 
+```
 @misc{Laundry:currentdate,
   author = {Laundry, Nathan},
   year = {current date},
@@ -78,4 +79,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
   howpublished = {Computer Program},
   url = {https://github.com/TheAcademicsFieldGuideToWritingCode/Tutorials-Generator}
 }
-
+```

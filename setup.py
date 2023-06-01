@@ -18,7 +18,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.9',
     install_requires=[
         "openai",
         "nbformat",
@@ -28,7 +28,7 @@ setuptools.setup(
     ],
     entry_points={
         "console_scripts": [
-            "curriculum_module_generator=curriculum_module_generator.main:cli",
+            "curriculum_module_generator=curriculum_module_generator.main:main",
         ],
     },
 )

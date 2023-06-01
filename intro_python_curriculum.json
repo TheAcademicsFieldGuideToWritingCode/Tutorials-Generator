@@ -1,0 +1,85 @@
+{
+  "topics": [
+    {
+      "name": "Introduction to Python",
+      "subtopics": [
+        "What is Python?",
+        "Python history",
+        "Python features and applications"
+      ]
+    },
+    {
+      "name": "Setting Up the Python Environment",
+      "subtopics": [
+        "Installing Python",
+        "Python IDEs and editors",
+        "Using the command line"
+      ]
+    },
+    {
+      "name": "Python Basics",
+      "subtopics": [
+        "Python syntax",
+        "Variables and data types",
+        "Operators and expressions"
+      ]
+    },
+    {
+      "name": "Control Structures",
+      "subtopics": [
+        "Conditional statements",
+        "Loops",
+        "Loop control statements"
+      ]
+    },
+    {
+      "name": "Functions",
+      "subtopics": [
+        "Defining functions",
+        "Function arguments",
+        "Scope and lifetime of variables"
+      ]
+    },
+    {
+      "name": "Python Data Structures",
+      "subtopics": [
+        "Lists",
+        "Tuples",
+        "Sets",
+        "Dictionaries"
+      ]
+    },
+    {
+      "name": "Modules and Packages",
+      "subtopics": [
+        "Importing modules",
+        "Creating your own modules",
+        "Python packages"
+      ]
+    },
+    {
+      "name": "Handling Exceptions",
+      "subtopics": [
+        "Exception handling basics",
+        "Try, except, finally blocks",
+        "Raising exceptions"
+      ]
+    },
+    {
+      "name": "File I/O",
+      "subtopics": [
+        "Reading and writing files",
+        "File modes",
+        "Working with directories"
+      ]
+    },
+    {
+      "name": "Object-oriented Programming",
+      "subtopics": [
+        "Classes and objects",
+        "Inheritance",
+        "Polymorphism"
+      ]
+    }
+  ]
+}
